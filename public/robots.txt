@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: vibeshow-kerch.ru
+Sitemap: https://vibeshow-kerch.ru/sitemap.xml

@@ -1,0 +1,79 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), usb=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org wss://mc.yandex.ru wss://*.mc.yandex.ru wss://mc.yandex.com wss://*.mc.yandex.com wss://mc.webvisor.org wss://*.mc.webvisor.org; frame-src 'self' https://yandex.com https://*.yandex.com https://yandex.ru https://*.yandex.ru https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org; child-src 'self' https://yandex.com https://*.yandex.com https://yandex.ru https://*.yandex.ru https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/file-redirect.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/favicon.png
+  Cache-Control: public, max-age=604800
+
+/favicon.svg
+  Cache-Control: public, max-age=604800
+
+/favicon-180x180.png
+  Cache-Control: public, max-age=604800
+
+/favicon-120x120.png
+  Cache-Control: public, max-age=604800
+
+/favicon-48x48.png
+  Cache-Control: public, max-age=604800
+
+/favicon-32x32.png
+  Cache-Control: public, max-age=604800
+
+/favicon-16x16.png
+  Cache-Control: public, max-age=604800
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505.jpg
+  Cache-Control: public, max-age=604800
+
+/hero-cover-laser-20260505-640.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-480.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-360.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-720.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-960.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-640.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-480.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-360.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-720.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/hero-cover-laser-20260505-960.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/robots.txt
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/sitemap.xml
+  Cache-Control: no-cache, no-store, must-revalidate

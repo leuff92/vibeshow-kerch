@@ -1,0 +1,11 @@
+{
+  "name": "vibeshow/lead-push",
+  "require": {
+    "php": "^8.2",
+    "minishlink/web-push": "~10.0.0"
+  },
+  "config": {
+    "platform": { "php": "8.2.0" },
+    "sort-packages": true
+  }
+}

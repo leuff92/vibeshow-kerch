@@ -1,0 +1,105 @@
+# Basic hardening for Apache-compatible static hosting.
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<FilesMatch "^(?:\.env|leads\.ini|password\.txt|leads-backup\.json(?:\.lock)?|rate-limit\.json|lead-[^.]+(?:\.tmp)?)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_dir.c>
+  DirectorySlash Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  RewriteRule ^api/leads/?$ api/leads/index.php [L]
+
+  RewriteRule ^api/leads/(?:data|vendor)(?:/|$) - [F,L]
+  RewriteRule ^leads$ /leads/ [R=301,L]
+  RewriteRule ^leads/$ leads/index.html [L]
+
+  RewriteCond %{THE_REQUEST} \s/+new-year(?:/[a-z-]+)?(?:\.html|/)[\s?]
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(new-year(?:/[a-z-]+)?)(?:\.html|/)$ https://%{HTTP_HOST}/$1 [R=301,L]
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(new-year(?:/[a-z-]+)?)$ $1.html [L]
+
+  RewriteCond %{THE_REQUEST} \s/(contacts|programs|gallery|reviews|cookie-policy|privacy-policy|personal-data-consent)\.html[\s?]
+  RewriteRule ^(contacts|programs|gallery|reviews|cookie-policy|privacy-policy|personal-data-consent)\.html$ https://%{HTTP_HOST}/$1 [R=301,L]
+  RewriteRule ^(contacts|programs|gallery|reviews|cookie-policy|privacy-policy|personal-data-consent)/$ https://%{HTTP_HOST}/$1 [R=301,L]
+  RewriteRule ^(contacts|programs|gallery|reviews|cookie-policy|privacy-policy|personal-data-consent)$ $1.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/x-icon .ico
+  AddType font/woff2 .woff2
+  AddType image/avif .avif
+  AddType image/webp .webp
+  AddType video/mp4 .mp4
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType image/png "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 7 days"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), usb=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org wss://mc.yandex.ru wss://*.mc.yandex.ru wss://mc.yandex.com wss://*.mc.yandex.com wss://mc.webvisor.org wss://*.mc.webvisor.org; frame-src 'self' https://yandex.com https://*.yandex.com https://yandex.ru https://*.yandex.ru https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org; child-src 'self' https://yandex.com https://*.yandex.com https://yandex.ru https://*.yandex.ru https://mc.yandex.ru https://*.mc.yandex.ru https://mc.yandex.com https://*.mc.yandex.com https://mc.webvisor.org https://*.mc.webvisor.org"
+
+  <FilesMatch "\.(?:js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(?:avif|webp)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(?:jpg|jpeg|png|svg)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+  <FilesMatch "^favicon\.(?:ico|svg)$|^favicon-\d+x\d+\.png$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+  <FilesMatch "^(?:robots\.txt|sitemap\.xml)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  <FilesMatch "^(?:sw\.js|app\.webmanifest)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
